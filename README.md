@@ -1,6 +1,6 @@
 ![Logo](docs/Images/Skoruba-Logo-ReadMe.png)
 
-# React-oidc-client-js
+# Swan Bitcoin Integration simulator
 
 > OpenID Connect (OIDC) client with React and typescript
 
@@ -8,14 +8,11 @@
 
 - The application is based on `create-react-app` - [Create React App](https://github.com/facebook/create-react-app)
 
-# Project status
-[![Build status](https://ci.appveyor.com/api/projects/status/5ml2f07trcm072a1?svg=true)](https://ci.appveyor.com/project/JanSkoruba/react-oidc-client-js)
-
 # Installation
 
 ## Cloning app
 
-- `git clone https://github.com/skoruba/react-oidc-client-js.git`
+- `git clone https://github.com/swan-bitcoin/integration-simulator.git`
 - `cd src/`
 
 ## Install dependecies
@@ -24,10 +21,7 @@
 
 ## Running app
 
-- `yarn start` - start the web server that is running on [http://localhost:4200](http://localhost:4200)
-
-- The application is connected to `OpenID Connect Provider` that is running on [https://demo.identityserver.io/](https://demo.identityserver.io/)
-- This STS has configured a SPA client to run on http://localhost:4200, therefore a sample application will be running on this port `4200`.
+- `yarn start` - start the web server that is running on [http://localhost:3000](http://localhost:3000)
 
 ## App preview
 
