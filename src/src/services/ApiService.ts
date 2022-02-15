@@ -12,17 +12,17 @@ export class ApiService {
   public callApi(): Promise<any> {
     return this.authService.getUser().then(user => {
       if (user && user.access_token) {
-        return this._callApi(user.access_token).catch(error => {
+        return this._getApi(user.access_token).catch(error => {
           if (error.response.status === 401) {
             return this.authService.renewToken().then(renewedUser => {
-              return this._callApi(renewedUser.access_token);
+              return this._getApi(renewedUser.access_token);
             });
           }
           throw error;
         });
       } else if (user) {
         return this.authService.renewToken().then(renewedUser => {
-          return this._callApi(renewedUser.access_token);
+          return this._getApi(renewedUser.access_token);
         });
       } else {
         throw new Error('user is not logged in');
@@ -30,12 +30,68 @@ export class ApiService {
     });
   }
 
-  private _callApi(token: string) {
-    const headers = {
+  public listWallets(): Promise<any> {
+    return this.authService.getUser().then(user => {
+      if (user && user.access_token) {
+        return this._getApi(user.access_token, 'wallets').catch(error => {
+          if (error.response.status === 401) {
+            return this.authService.renewToken().then(renewedUser => {
+              return this._getApi(renewedUser.access_token, 'wallets');
+            });
+          }
+          throw error;
+        });
+      } else if (user) {
+        return this.authService.renewToken().then(renewedUser => {
+          return this._getApi(renewedUser.access_token);
+        });
+      } else {
+        throw new Error('user is not logged in');
+      }
+    });
+  }
+
+  public createWallet(displayName: string, extendedPublicKey: string): Promise<any> {
+    const data = {
+      displayName, extendedPublicKey
+    }
+
+    return this.authService.getUser().then(user => {
+      if (user && user.access_token) {
+        return this._postApi(user.access_token, 'wallets', data).catch(error => {
+          if (error.response.status === 401) {
+            return this.authService.renewToken().then(renewedUser => {
+              return this._postApi(renewedUser.access_token, 'wallets', data);
+            });
+          }
+          throw error;
+        });
+      } else if (user) {
+        return this.authService.renewToken().then(renewedUser => {
+          return this._getApi(renewedUser.access_token);
+        });
+      } else {
+        throw new Error('user is not logged in');
+      }
+    });
+  }
+
+  private _header(token: string): any {
+    return {
       Accept: 'application/json',
       Authorization: 'Bearer ' + token
     };
+  }
 
-    return axios.get(Constants.apiRoot + 'test', { headers });
+  private _getApi(token: string, method: string = 'ping'): Promise<any> {
+    const headers = this._header(token);
+
+    return axios.get(`https://dev-api.swanbitcoin.com/apps/v20210824/${method}`, { headers });
+  }
+
+  private _postApi(token: string, method: string, body: object): Promise<any> {
+    const headers = this._header(token);
+
+    return axios.post(`https://dev-api.swanbitcoin.com/apps/v20210824/${method}`, body, { headers });
   }
 }

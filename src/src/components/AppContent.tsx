@@ -41,6 +41,46 @@ export default class AppContent extends React.Component<any, any> {
       });
   };
 
+  public listWallets = () => {
+    this.apiService
+      .listWallets()
+      .then(data => {
+        this.setState({ api: data.data });
+        toast.success('Api return successfully data, check in section - Api response');
+      })
+      .catch(error => {
+        toast.error(error);
+      });
+  };
+
+  public randomString(n: number, charset?: string): string {
+    let res = '';
+    let chars =
+      charset || 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let charLen = chars.length;
+
+    for (var i = 0; i < n; i++) {
+      res += chars.charAt(Math.floor(Math.random() * charLen));
+    }
+
+    return res;
+  }
+
+  public createWallet = () => {
+    this.apiService
+      .createWallet(
+        this.randomString(10),
+        'xpub6EuV33a2DXxAhoJTRTnr8qnysu81AA4YHpLY6o8NiGkEJ8KADJ35T64eJsStWsmRf1xXkEANVjXFXnaUKbRtFwuSPCLfDdZwYNZToh4LBCd'
+      )
+      .then(data => {
+        this.setState({ api: data.data });
+        toast.success('Api return successfully data, check in section - Api response');
+      })
+      .catch(error => {
+        toast.error(error);
+      });
+  };
+
   public componentWillUnmount() {
     this.shouldCancel = true;
   }
@@ -86,6 +126,8 @@ export default class AppContent extends React.Component<any, any> {
           renewToken={this.renewToken}
           getUser={this.getUser}
           callApi={this.callApi}
+          listWallets={this.listWallets}
+          createWallet={this.createWallet}
         />
 
         <AuthContent api={this.state.api} user={this.state.user} />
