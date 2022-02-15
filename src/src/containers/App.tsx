@@ -8,7 +8,7 @@ class App extends React.Component {
   public render() {
     return (
       <div className="App">
-        <Header pageTitle="Welcome to React and oidc-client-js" logoSrc={logo} />
+        <Header pageTitle="Welcome to Swan's OIDC integration example" logoSrc={logo} />
         <div className="container-fluid">
           <div className="row">
             <div className="col">
