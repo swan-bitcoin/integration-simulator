@@ -1,5 +1,3 @@
-![Logo](docs/Images/Skoruba-Logo-ReadMe.png)
-
 # Swan Bitcoin Integration simulator
 
 > OpenID Connect (OIDC) client with React and typescript
