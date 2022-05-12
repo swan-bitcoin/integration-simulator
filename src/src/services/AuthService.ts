@@ -16,7 +16,10 @@ export class AuthService {
       post_logout_redirect_uri: `${Constants.clientRoot}`,
       response_type: 'code',
       prompt: 'consent',
-      scope: Constants.clientScope
+      scope: Constants.clientScope,
+      extraQueryParams: {
+        userId: '4be295b6-dd8b-49be-9a7b-ea52a85b41bb'
+      }
     };
     this.userManager = new UserManager(settings);
 
