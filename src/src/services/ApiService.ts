@@ -86,12 +86,12 @@ export class ApiService {
   private _getApi(token: string, method: string = 'ping'): Promise<any> {
     const headers = this._header(token);
 
-    return axios.get(`https://dev-api.swanbitcoin.com/apps/v20210824/${method}`, { headers });
+    return axios.get(`${Constants.apiRoot}${method}`, { headers });
   }
 
   private _postApi(token: string, method: string, body: object): Promise<any> {
     const headers = this._header(token);
 
-    return axios.post(`https://dev-api.swanbitcoin.com/apps/v20210824/${method}`, body, { headers });
+    return axios.post(`${Constants.apiRoot}${method}`, body, { headers });
   }
 }
