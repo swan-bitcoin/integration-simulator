@@ -81,6 +81,18 @@ export default class AppContent extends React.Component<any, any> {
       });
   };
 
+  public createSavingsPlan = () => {
+    this.apiService
+      .createSavingsPlan()
+      .then(data => {
+        this.setState({ api: data.data });
+        toast.success('Api return successfully data, check in section - Api response');
+      })
+      .catch(error => {
+        toast.error(error);
+      });
+  };
+
   public componentWillUnmount() {
     this.shouldCancel = true;
   }
@@ -128,6 +140,7 @@ export default class AppContent extends React.Component<any, any> {
           callApi={this.callApi}
           listWallets={this.listWallets}
           createWallet={this.createWallet}
+          createSavingsPlan={this.createSavingsPlan}
         />
 
         <AuthContent api={this.state.api} user={this.state.user} />
