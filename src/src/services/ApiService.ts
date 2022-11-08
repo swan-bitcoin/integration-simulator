@@ -101,6 +101,32 @@ export class ApiService {
     });
   }
 
+  public createSavingsPlan(): Promise<any> {
+    const data = {
+      amountUsd: 100,
+      cycle: 'months',
+    }
+
+    return this.authService.getUser().then(user => {
+      if (user && user.access_token) {
+        return this._postApi(user.access_token, 'savings-plan', data).catch(error => {
+          if (error.response.status === 401) {
+            return this.authService.renewToken().then(renewedUser => {
+              return this._postApi(renewedUser.access_token, 'savings-plan', data);
+            });
+          }
+          throw error;
+        });
+      } else if (user) {
+        return this.authService.renewToken().then(renewedUser => {
+          return this._getApi(renewedUser.access_token);
+        });
+      } else {
+        throw new Error('user is not logged in');
+      }
+    });
+  }
+
   private _header(token: string): any {
     return {
       Accept: 'application/json',
