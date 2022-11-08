@@ -6,6 +6,7 @@ interface IButtonsProps {
   callApi: () => void;
   listWallets: () => void;
   createWallet: () => void;
+  lnWithdrawal: () => void;
   createSavingsPlan: () => void;
   renewToken: () => void;
   logout: () => void;
@@ -29,6 +30,9 @@ const Buttons: React.SFC<IButtonsProps> = props => {
         </button>
         <button className="btn btn-warning btn-getapi" style={{ margin: '10px' }} onClick={props.createWallet}>
           Create Wallet
+        </button>
+        <button className="btn btn-warning btn-getapi" style={{ margin: '10px' }} onClick={props.lnWithdrawal}>
+          LN Withdrawal
         </button>
         <button className="btn btn-warning btn-getapi" style={{ margin: '10px' }} onClick={props.createSavingsPlan}>
           Create Savings Plan
