@@ -66,6 +66,19 @@ export default class AppContent extends React.Component<any, any> {
     return res;
   }
 
+  public lnDeposit = () => {
+    //eslint-disable-line
+    this.apiService
+      .lnDeposit()
+      .then(data => {
+        this.setState({ api: data.data });
+        toast.success('Api return successfully data, check in section - Api response');
+      })
+      .catch(error => {
+        toast.error(error);
+      });
+  };
+
   public lnWithdrawal = () => {
     //eslint-disable-line
     let a = prompt('Enter LN invoice') //eslint-disable-line
@@ -74,6 +87,18 @@ export default class AppContent extends React.Component<any, any> {
       .lnWithdrawal(
         a
       )
+      .then(data => {
+        this.setState({ api: data.data });
+        toast.success('Api return successfully data, check in section - Api response');
+      })
+      .catch(error => {
+        toast.error(error);
+      });
+  };
+
+  public listWithdrawals = () => {
+    this.apiService
+      .listWithdrawals()
       .then(data => {
         this.setState({ api: data.data });
         toast.success('Api return successfully data, check in section - Api response');
@@ -156,7 +181,9 @@ export default class AppContent extends React.Component<any, any> {
           getUser={this.getUser}
           callApi={this.callApi}
           listWallets={this.listWallets}
+          lnDeposit={this.lnDeposit}
           lnWithdrawal={this.lnWithdrawal}
+          listWithdrawals={this.listWithdrawals}
           createWallet={this.createWallet}
           createSavingsPlan={this.createSavingsPlan}
         />
